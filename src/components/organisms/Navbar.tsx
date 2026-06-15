@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 export default function Navbar() {
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -25,19 +27,22 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Homepage</a>
+              <Link to="/">Homepage</Link>
             </li>
             <li>
-              <a>Portfolio</a>
+              <Link to="/products">Items</Link>
             </li>
             <li>
-              <a>About</a>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/impressum">Impressum</Link>
             </li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">Small Shop</a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

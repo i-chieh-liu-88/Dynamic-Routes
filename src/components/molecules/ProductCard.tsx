@@ -1,26 +1,40 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import Badge from "../atoms/Badge";
 import Button from "../atoms/Button";
 
-export default function ProductCard() {
-  const navigate = useNavigate();
+type ProductCardsProps = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  image: string;
+};
 
-  const handleClick = () => {
-    // 點擊後跳轉到商品詳細頁
-    navigate({ to: "/products/$id, params: { id }" });
-  };
-
+export default function ProductCard({
+  id,
+  name,
+  category,
+  price,
+  image,
+}: ProductCardsProps) {
   return (
-    <div>
-      <h2>{name}</h2>
-      <p>Price: {price}</p>
-
-      {/* 使用 Badge atom */}
-      <Badge label={category} variant="secondary" />
-
-      <div>
-        {/* 使用 Button atom */}
-        <Button label="see the detail" onClick={handleClick} />
+    <div className="card bg-base-100 w-96 shadow-sm">
+      <figure className="px-10 pt-10">
+        <img src={image} alt={name} className="rounded-xl" />
+      </figure>
+      <div className="card-body items-center text-center">
+        <h2 className="card-title">{name}</h2>
+        <Badge label={category} variant="secondary" />
+        <p>Price: $ {price} </p>
+        <div className="card-actions">
+          <Link
+            to="/products/$id"
+            params={{ id }}
+            search={{ color: undefined, category: undefined }}
+          >
+            <button className="btn btn-primary">View More</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -13,9 +13,6 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
-import { Route as DashboardLayoutRouteImport } from './routes/dashboard/_layout'
 import { Route as LayoutProductsRouteImport } from './routes/_layout/products'
 import { Route as LayoutProductsIdRouteImport } from './routes/_layout/products.$id'
 
@@ -38,21 +35,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/dashboard/settings',
-  path: '/dashboard/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardLayoutRoute = DashboardLayoutRouteImport.update({
-  id: '/dashboard/_layout',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LayoutProductsRoute = LayoutProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -69,9 +51,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
   '/products': typeof LayoutProductsRouteWithChildren
-  '/dashboard': typeof DashboardLayoutRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/': typeof DashboardIndexRoute
   '/products/$id': typeof LayoutProductsIdRoute
 }
 export interface FileRoutesByTo {
@@ -79,8 +58,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
   '/products': typeof LayoutProductsRouteWithChildren
-  '/dashboard': typeof DashboardIndexRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
   '/products/$id': typeof LayoutProductsIdRoute
 }
 export interface FileRoutesById {
@@ -90,31 +67,13 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
   '/_layout/products': typeof LayoutProductsRouteWithChildren
-  '/dashboard/_layout': typeof DashboardLayoutRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
-  '/dashboard/': typeof DashboardIndexRoute
   '/_layout/products/$id': typeof LayoutProductsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/impressum'
-    | '/products'
-    | '/dashboard'
-    | '/dashboard/settings'
-    | '/dashboard/'
-    | '/products/$id'
+  fullPaths: '/' | '/about' | '/impressum' | '/products' | '/products/$id'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/impressum'
-    | '/products'
-    | '/dashboard'
-    | '/dashboard/settings'
-    | '/products/$id'
+  to: '/' | '/about' | '/impressum' | '/products' | '/products/$id'
   id:
     | '__root__'
     | '/'
@@ -122,9 +81,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/impressum'
     | '/_layout/products'
-    | '/dashboard/_layout'
-    | '/dashboard/settings'
-    | '/dashboard/'
     | '/_layout/products/$id'
   fileRoutesById: FileRoutesById
 }
@@ -133,9 +89,6 @@ export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   AboutRoute: typeof AboutRoute
   ImpressumRoute: typeof ImpressumRoute
-  DashboardLayoutRoute: typeof DashboardLayoutRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -166,27 +119,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof DashboardIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/dashboard/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/_layout': {
-      id: '/dashboard/_layout'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layout/products': {
@@ -234,9 +166,6 @@ const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   AboutRoute: AboutRoute,
   ImpressumRoute: ImpressumRoute,
-  DashboardLayoutRoute: DashboardLayoutRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,4 +1,53 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import Badge from "../../components/atoms/Badge";
+import Button from "../../components/atoms/Button";
+
+// 假資料（和 products.tsx 一樣）
+export type Product = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  description: string;
+  colors: string[];
+  image: string;
+};
+
+export const products: Product[] = [
+  {
+    id: "1",
+    name: "Bagger",
+    category: "Vehicle",
+    price: 29,
+    description:
+      "A sturdy toy excavator perfect for digging adventures in the sandbox.",
+    colors: ["Yellow", "Orange"],
+    image:
+      "https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "2",
+    name: "Laufrad",
+    category: "Bike",
+    price: 49,
+    description:
+      "A lightweight balance bike designed to help toddlers learn to ride with confidence.",
+    colors: ["Red", "Blue", "Green"],
+    image:
+      "https://images.unsplash.com/photo-1568621947520-4d6652dfa392?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: "3",
+    name: "LEGO",
+    category: "Building Blocks",
+    price: 39,
+    description:
+      "A classic LEGO set that sparks creativity and imagination for kids of all ages.",
+    colors: ["Multicolor"],
+    image:
+      "https://images.unsplash.com/photo-1505322033502-1f4385692e6a?q=80&w=1068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+];
 
 export const Route = createFileRoute("/_layout/products/$id")({
   validateSearch: (search) => {
@@ -15,24 +64,77 @@ function ProductDetailComponent() {
   // 從網址讀取 Search Params
   const { color } = Route.useSearch();
 
+  console.log("ProductDetailComponent rendered, id:", id); // use for debug
+
+  // 根據 id 找到對應商品
+  const product = products.find((p) => p.id === id);
+
+  // 如果找不到商品
+  if (!product) {
+    return (
+      <div>
+        <h1 className="text-3xl font-bold mb-4">找不到商品</h1>
+        <Link to="/products" search={{ category: undefined }}>
+          <Button label="回到商品列表" />
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-4">商品詳細頁</h1>
+      <Link
+        to="/products"
+        search={{ category: undefined }}
+        className="mb-6 block badge badge-accent"
+      >
+        ← Back to Product List
+      </Link>
 
-      <div className="card bg-base-100 shadow-md p-6">
-        <p>
-          商品 ID：<span className="badge badge-accent">{id}</span>
-        </p>
-        {color && (
-          <p className="mt-2">
-            選擇顏色：<span className="badge badge-secondary">{color}</span>
-          </p>
-        )}
+      <div className="card bg-base-100 shadow-md">
+        {/* 加上圖片 */}
+        <figure className="px-10 pt-10">
+          <img src={product.image} alt={product.name} className="rounded-xl" />
+        </figure>
+
+        <div className="card-body">
+          <h1 className="card-title text-3xl">{product.name}</h1>
+          <Badge label={product.category} variant="secondary" />
+          <p>{product.description}</p>
+          <p className="text-2xl font-bold text-primary">$ {product.price}</p>
+
+          <div className="mb-4">
+            <p className="font-bold mb-2">Select Colors：</p>
+            <div className="flex gap-2">
+              {product.colors.map((c) => (
+                <Link
+                  key={c}
+                  to="/products/$id"
+                  params={{ id }}
+                  search={{ color: c, category: undefined }}
+                >
+                  <span
+                    className={`badge ${color === c ? "badge-primary" : "badge-outline"}`}
+                  >
+                    {c}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {color && (
+            <p className="mb-4">
+              Selected Color：
+              <Badge label={color} variant="accent" />
+            </p>
+          )}
+
+          <div className="card-actions">
+            <button className="btn btn-primary">Add to cart</button>
+          </div>
+        </div>
       </div>
-
-      <p className="text-base-content mt-4">
-        網址範例：/products/123?color=紅色
-      </p>
     </div>
   );
 }
