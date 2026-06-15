@@ -9,13 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as LayoutRouteImport } from './routes/_layout'
+import { Route as LayoutSidebarRouteRouteImport } from './routes/_layoutSidebar/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as LayoutProductsRouteImport } from './routes/_layout/products'
-import { Route as LayoutProductsIdRouteImport } from './routes/_layout/products.$id'
+import { Route as SigninSplatRouteImport } from './routes/signin.$'
+import { Route as LayoutSidebarProductsRouteImport } from './routes/_layoutSidebar/products'
+import { Route as LayoutSidebarProductsIdRouteImport } from './routes/_layoutSidebar/products.$id'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImpressumRoute = ImpressumRouteImport.update({
   id: '/impressum',
   path: '/impressum',
@@ -26,8 +33,8 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutRoute = LayoutRouteImport.update({
-  id: '/_layout',
+const LayoutSidebarRouteRoute = LayoutSidebarRouteRouteImport.update({
+  id: '/_layoutSidebar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -35,64 +42,100 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LayoutProductsRoute = LayoutProductsRouteImport.update({
+const SigninSplatRoute = SigninSplatRouteImport.update({
+  id: '/signin/$',
+  path: '/signin/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LayoutSidebarProductsRoute = LayoutSidebarProductsRouteImport.update({
   id: '/products',
   path: '/products',
-  getParentRoute: () => LayoutRoute,
+  getParentRoute: () => LayoutSidebarRouteRoute,
 } as any)
-const LayoutProductsIdRoute = LayoutProductsIdRouteImport.update({
+const LayoutSidebarProductsIdRoute = LayoutSidebarProductsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => LayoutProductsRoute,
+  getParentRoute: () => LayoutSidebarProductsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
-  '/products': typeof LayoutProductsRouteWithChildren
-  '/products/$id': typeof LayoutProductsIdRoute
+  '/signup': typeof SignupRoute
+  '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/signin/$': typeof SigninSplatRoute
+  '/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
-  '/products': typeof LayoutProductsRouteWithChildren
-  '/products/$id': typeof LayoutProductsIdRoute
+  '/signup': typeof SignupRoute
+  '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/signin/$': typeof SigninSplatRoute
+  '/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_layout': typeof LayoutRouteWithChildren
+  '/_layoutSidebar': typeof LayoutSidebarRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/impressum': typeof ImpressumRoute
-  '/_layout/products': typeof LayoutProductsRouteWithChildren
-  '/_layout/products/$id': typeof LayoutProductsIdRoute
+  '/signup': typeof SignupRoute
+  '/_layoutSidebar/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/signin/$': typeof SigninSplatRoute
+  '/_layoutSidebar/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/impressum' | '/products' | '/products/$id'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/impressum'
+    | '/signup'
+    | '/products'
+    | '/signin/$'
+    | '/products/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/impressum' | '/products' | '/products/$id'
+  to:
+    | '/'
+    | '/about'
+    | '/impressum'
+    | '/signup'
+    | '/products'
+    | '/signin/$'
+    | '/products/$id'
   id:
     | '__root__'
     | '/'
-    | '/_layout'
+    | '/_layoutSidebar'
     | '/about'
     | '/impressum'
-    | '/_layout/products'
-    | '/_layout/products/$id'
+    | '/signup'
+    | '/_layoutSidebar/products'
+    | '/signin/$'
+    | '/_layoutSidebar/products/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LayoutRoute: typeof LayoutRouteWithChildren
+  LayoutSidebarRouteRoute: typeof LayoutSidebarRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   ImpressumRoute: typeof ImpressumRoute
+  SignupRoute: typeof SignupRoute
+  SigninSplatRoute: typeof SigninSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/impressum': {
       id: '/impressum'
       path: '/impressum'
@@ -107,11 +150,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_layout': {
-      id: '/_layout'
+    '/_layoutSidebar': {
+      id: '/_layoutSidebar'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof LayoutRouteImport
+      preLoaderRoute: typeof LayoutSidebarRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,51 +164,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_layout/products': {
-      id: '/_layout/products'
+    '/signin/$': {
+      id: '/signin/$'
+      path: '/signin/$'
+      fullPath: '/signin/$'
+      preLoaderRoute: typeof SigninSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_layoutSidebar/products': {
+      id: '/_layoutSidebar/products'
       path: '/products'
       fullPath: '/products'
-      preLoaderRoute: typeof LayoutProductsRouteImport
-      parentRoute: typeof LayoutRoute
+      preLoaderRoute: typeof LayoutSidebarProductsRouteImport
+      parentRoute: typeof LayoutSidebarRouteRoute
     }
-    '/_layout/products/$id': {
-      id: '/_layout/products/$id'
+    '/_layoutSidebar/products/$id': {
+      id: '/_layoutSidebar/products/$id'
       path: '/$id'
       fullPath: '/products/$id'
-      preLoaderRoute: typeof LayoutProductsIdRouteImport
-      parentRoute: typeof LayoutProductsRoute
+      preLoaderRoute: typeof LayoutSidebarProductsIdRouteImport
+      parentRoute: typeof LayoutSidebarProductsRoute
     }
   }
 }
 
-interface LayoutProductsRouteChildren {
-  LayoutProductsIdRoute: typeof LayoutProductsIdRoute
+interface LayoutSidebarProductsRouteChildren {
+  LayoutSidebarProductsIdRoute: typeof LayoutSidebarProductsIdRoute
 }
 
-const LayoutProductsRouteChildren: LayoutProductsRouteChildren = {
-  LayoutProductsIdRoute: LayoutProductsIdRoute,
+const LayoutSidebarProductsRouteChildren: LayoutSidebarProductsRouteChildren = {
+  LayoutSidebarProductsIdRoute: LayoutSidebarProductsIdRoute,
 }
 
-const LayoutProductsRouteWithChildren = LayoutProductsRoute._addFileChildren(
-  LayoutProductsRouteChildren,
-)
+const LayoutSidebarProductsRouteWithChildren =
+  LayoutSidebarProductsRoute._addFileChildren(
+    LayoutSidebarProductsRouteChildren,
+  )
 
-interface LayoutRouteChildren {
-  LayoutProductsRoute: typeof LayoutProductsRouteWithChildren
+interface LayoutSidebarRouteRouteChildren {
+  LayoutSidebarProductsRoute: typeof LayoutSidebarProductsRouteWithChildren
 }
 
-const LayoutRouteChildren: LayoutRouteChildren = {
-  LayoutProductsRoute: LayoutProductsRouteWithChildren,
+const LayoutSidebarRouteRouteChildren: LayoutSidebarRouteRouteChildren = {
+  LayoutSidebarProductsRoute: LayoutSidebarProductsRouteWithChildren,
 }
 
-const LayoutRouteWithChildren =
-  LayoutRoute._addFileChildren(LayoutRouteChildren)
+const LayoutSidebarRouteRouteWithChildren =
+  LayoutSidebarRouteRoute._addFileChildren(LayoutSidebarRouteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LayoutRoute: LayoutRouteWithChildren,
+  LayoutSidebarRouteRoute: LayoutSidebarRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   ImpressumRoute: ImpressumRoute,
+  SignupRoute: SignupRoute,
+  SigninSplatRoute: SigninSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

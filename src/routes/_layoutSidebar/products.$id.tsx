@@ -49,7 +49,7 @@ const products: Product[] = [
   },
 ];
 
-export const Route = createFileRoute("/_layout/products/$id")({
+export const Route = createFileRoute("/_layoutSidebar/products/$id")({
   validateSearch: (search) => {
     return {
       color: search.color ? String(search.color) : undefined,

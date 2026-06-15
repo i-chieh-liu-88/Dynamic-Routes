@@ -48,7 +48,7 @@ const products: Product[] = [
   },
 ];
 
-export const Route = createFileRoute("/_layout/products")({
+export const Route = createFileRoute("/_layoutSidebar/products")({
   validateSearch: (search) => {
     return {
       category: search.category ? String(search.category) : undefined,

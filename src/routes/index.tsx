@@ -16,7 +16,8 @@ function RouteComponent() {
           />
           <h1 className="text-5xl font-bold">Welcome to Small Shop</h1>
           <p className="py-6 text-lg">
-            Discover our handpicked collection of high-quality toys
+            Discover our handpicked collection of high-quality items for
+            children
           </p>
           <Link to="/products" search={{ category: undefined }}>
             <button className="btn btn-primary btn-lg">Shop Now</button>
