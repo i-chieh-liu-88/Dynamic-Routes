@@ -2,7 +2,7 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 import ProductCard from "../../components/molecules/ProductCard";
 
 // 假資料
-export type Product = {
+type Product = {
   id: string;
   name: string;
   category: string;
@@ -12,7 +12,7 @@ export type Product = {
   image: string;
 };
 
-export const products: Product[] = [
+const products: Product[] = [
   {
     id: "1",
     name: "Bagger",

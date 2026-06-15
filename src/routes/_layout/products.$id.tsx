@@ -3,7 +3,7 @@ import Badge from "../../components/atoms/Badge";
 import Button from "../../components/atoms/Button";
 
 // 假資料（和 products.tsx 一樣）
-export type Product = {
+type Product = {
   id: string;
   name: string;
   category: string;
@@ -13,7 +13,7 @@ export type Product = {
   image: string;
 };
 
-export const products: Product[] = [
+const products: Product[] = [
   {
     id: "1",
     name: "Bagger",
@@ -43,7 +43,7 @@ export const products: Product[] = [
     price: 39,
     description:
       "A classic LEGO set that sparks creativity and imagination for kids of all ages.",
-    colors: ["Multicolor"],
+    colors: ["Red", "Blue", "Green"],
     image:
       "https://images.unsplash.com/photo-1505322033502-1f4385692e6a?q=80&w=1068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -108,10 +108,11 @@ function ProductDetailComponent() {
             <div className="flex gap-2">
               {product.colors.map((c) => (
                 <Link
-                  key={c}
-                  to="/products/$id"
-                  params={{ id }}
+                  key={c} //React 需要的唯一識別，用顏色名稱當 key
+                  to="/products/$id" //連結到同一個商品頁面
+                  params={{ id }} //保持目前的商品 id 不變
                   search={{ color: c, category: undefined }}
+                  //把網址的 color 換成這個顏色，category 清空; TanStack Router 看到 undefined 就會直接把那個參數從網址移除
                 >
                   <span
                     className={`badge ${color === c ? "badge-primary" : "badge-outline"}`}
