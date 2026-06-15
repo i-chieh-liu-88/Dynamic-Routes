@@ -14,7 +14,7 @@ function ImpressumComponent() {
         <p className="text-base-content leading-relaxed">
           Small Shop GmbH <br />
           Spielzeugstraße 42 <br />
-          01099 Dresden <br />
+          01000 Dresden <br />
           Germany
         </p>
       </div>

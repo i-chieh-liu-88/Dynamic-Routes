@@ -53,18 +53,22 @@ export const Route = createFileRoute("/_layout/products")({
     return {
       category: search.category ? String(search.category) : undefined,
     };
+    //網址有 ?category=shoes轉成字串 "shoes" : 網址沒有 ?category回傳 undefined
   },
   component: ProductsComponent,
 });
 
 function ProductsComponent() {
   // 從網址讀取 Search Params
-  const { category } = Route.useSearch();
+  const result = Route.useSearch();
+  const category = result.category;
 
-  // 根據 category 篩選商品
+  // 根據 category 篩選商品; 這是 TanStack Router 提供的 hook
   const filtered = category
-    ? products.filter((p) => p.category === category)
-    : products;
+    ? products.filter((product) => product.category === category)
+    : //如果 category 有值（不是 null / undefined / 空字串: 執行篩選
+      products;
+  //如果 category 沒有值: 直接用全部的 products
 
   return (
     <div>
@@ -94,3 +98,13 @@ function ProductsComponent() {
     </div>
   );
 }
+
+// 使用者進入 /products?category=shoes
+//         ↓
+// validateSearch 驗證並整理參數
+//         ↓
+// { category: "shoes" }
+//         ↓
+// Route.useSearch() 就可以拿到這個值
+//         ↓
+// 畫面用 category 篩選商品
