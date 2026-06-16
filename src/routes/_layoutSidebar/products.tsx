@@ -42,7 +42,7 @@ const products: Product[] = [
     price: 39,
     description:
       "A classic LEGO set that sparks creativity and imagination for kids of all ages.",
-    colors: ["Multicolor"],
+    colors: ["Red", "Blue", "Green"],
     image:
       "https://images.unsplash.com/photo-1505322033502-1f4385692e6a?q=80&w=1068&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },

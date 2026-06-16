@@ -63,8 +63,6 @@ function ProductDetailComponent() {
   // 從網址讀取 Search Params
   const { color } = Route.useSearch();
 
-  console.log("ProductDetailComponent rendered, id:", id); // use for debug
-
   // 根據 id 找到對應商品
   const product = products.find((p) => p.id === id);
 

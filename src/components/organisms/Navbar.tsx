@@ -1,7 +1,9 @@
-import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { UserButton, useAuth } from "@clerk/react";
 import { Link } from "@tanstack/react-router";
 
 export default function Navbar() {
+  const { isSignedIn } = useAuth(); // 用這個判斷是否登入
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -30,7 +32,9 @@ export default function Navbar() {
               <Link to="/">Homepage</Link>
             </li>
             <li>
-              <Link to="/products">Items</Link>
+              <Link to="/products" search={{ category: undefined }}>
+                Items
+              </Link>
             </li>
             <li>
               <Link to="/about">About</Link>
@@ -50,19 +54,20 @@ export default function Navbar() {
 
       <div className="navbar-end gap-2">
         {/* SignIn / SignUp 只在未登入時顯示 */}
-        <SignedOut>
-          <Link to="/signin" className="btn btn-ghost btn-sm">
-            Sign In
-          </Link>
-          <Link to="/signup" className="btn btn-primary btn-sm">
-            Sign Up
-          </Link>
-        </SignedOut>
-
-        {/* 登入後顯示 UserButton */}
-        <SignedIn>
+        {!isSignedIn ? (
+          // 未登入：顯示 Sign In / Sign Up
+          <>
+            <Link to="/signin/$" className="btn btn-ghost btn-sm">
+              Sign In
+            </Link>
+            <Link to="/signup" className="btn btn-primary btn-sm">
+              Sign Up
+            </Link>
+          </>
+        ) : (
+          // 已登入：顯示 UserButton
           <UserButton />
-        </SignedIn>
+        )}
       </div>
     </div>
   );
