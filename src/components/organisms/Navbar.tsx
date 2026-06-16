@@ -48,7 +48,7 @@ export default function Navbar() {
 
       <div className="navbar-center">
         <Link to="/" className="btn btn-ghost text-xl">
-          Tiny Toy Shop
+          Small Shop
         </Link>
       </div>
 
