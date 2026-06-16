@@ -7,7 +7,11 @@ export default function Footer() {
         <Link to="/about" className="link link-hover">
           About
         </Link>
-        <Link to="/products" className="link link-hover">
+        <Link
+          to="/products"
+          search={{ category: undefined }}
+          className="link link-hover"
+        >
           Items
         </Link>
         <Link to="/impressum" className="link link-hover">

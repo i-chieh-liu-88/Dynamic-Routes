@@ -9,39 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as ImpressumRouteImport } from './routes/impressum'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdmindashboardRouteRouteImport } from './routes/admindashboard/route'
 import { Route as LayoutSidebarRouteRouteImport } from './routes/_layoutSidebar/route'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as SigninSplatRouteImport } from './routes/signin.$'
+import { Route as AdmindashboardIndexRouteImport } from './routes/admindashboard/index'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as DashboardPayoutsRouteImport } from './routes/dashboard/payouts'
+import { Route as AdmindashboardSettingsRouteImport } from './routes/admindashboard/settings'
+import { Route as PublicSignupRouteImport } from './routes/_public/signup'
+import { Route as PublicImpressumRouteImport } from './routes/_public/impressum'
+import { Route as PublicAboutRouteImport } from './routes/_public/about'
 import { Route as LayoutSidebarProductsRouteImport } from './routes/_layoutSidebar/products'
+import { Route as PublicSigninSplatRouteImport } from './routes/_public/signin.$'
 import { Route as LayoutSidebarProductsIdRouteImport } from './routes/_layoutSidebar/products.$id'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ImpressumRoute = ImpressumRouteImport.update({
-  id: '/impressum',
-  path: '/impressum',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const AdmindashboardRouteRoute = AdmindashboardRouteRouteImport.update({
+  id: '/admindashboard',
+  path: '/admindashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutSidebarRouteRoute = LayoutSidebarRouteRouteImport.update({
   id: '/_layoutSidebar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -49,9 +37,14 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/dashboard/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SigninSplatRoute = SigninSplatRouteImport.update({
-  id: '/signin/$',
-  path: '/signin/$',
+const AdmindashboardIndexRoute = AdmindashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdmindashboardRouteRoute,
+} as any)
+const PublicIndexRoute = PublicIndexRouteImport.update({
+  id: '/_public/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardPayoutsRoute = DashboardPayoutsRouteImport.update({
@@ -59,10 +52,35 @@ const DashboardPayoutsRoute = DashboardPayoutsRouteImport.update({
   path: '/dashboard/payouts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdmindashboardSettingsRoute = AdmindashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdmindashboardRouteRoute,
+} as any)
+const PublicSignupRoute = PublicSignupRouteImport.update({
+  id: '/_public/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicImpressumRoute = PublicImpressumRouteImport.update({
+  id: '/_public/impressum',
+  path: '/impressum',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/_public/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LayoutSidebarProductsRoute = LayoutSidebarProductsRouteImport.update({
   id: '/products',
   path: '/products',
   getParentRoute: () => LayoutSidebarRouteRoute,
+} as any)
+const PublicSigninSplatRoute = PublicSigninSplatRouteImport.update({
+  id: '/_public/signin/$',
+  path: '/signin/$',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutSidebarProductsIdRoute = LayoutSidebarProductsIdRouteImport.update({
   id: '/$id',
@@ -71,109 +89,112 @@ const LayoutSidebarProductsIdRoute = LayoutSidebarProductsIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/impressum': typeof ImpressumRoute
-  '/signup': typeof SignupRoute
+  '/': typeof PublicIndexRoute
+  '/admindashboard': typeof AdmindashboardRouteRouteWithChildren
   '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/about': typeof PublicAboutRoute
+  '/impressum': typeof PublicImpressumRoute
+  '/signup': typeof PublicSignupRoute
+  '/admindashboard/settings': typeof AdmindashboardSettingsRoute
   '/dashboard/payouts': typeof DashboardPayoutsRoute
-  '/signin/$': typeof SigninSplatRoute
+  '/admindashboard/': typeof AdmindashboardIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/products/$id': typeof LayoutSidebarProductsIdRoute
+  '/signin/$': typeof PublicSigninSplatRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/impressum': typeof ImpressumRoute
-  '/signup': typeof SignupRoute
+  '/': typeof PublicIndexRoute
   '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/about': typeof PublicAboutRoute
+  '/impressum': typeof PublicImpressumRoute
+  '/signup': typeof PublicSignupRoute
+  '/admindashboard/settings': typeof AdmindashboardSettingsRoute
   '/dashboard/payouts': typeof DashboardPayoutsRoute
-  '/signin/$': typeof SigninSplatRoute
+  '/admindashboard': typeof AdmindashboardIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/products/$id': typeof LayoutSidebarProductsIdRoute
+  '/signin/$': typeof PublicSigninSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_layoutSidebar': typeof LayoutSidebarRouteRouteWithChildren
-  '/about': typeof AboutRoute
-  '/impressum': typeof ImpressumRoute
-  '/signup': typeof SignupRoute
+  '/admindashboard': typeof AdmindashboardRouteRouteWithChildren
   '/_layoutSidebar/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/impressum': typeof PublicImpressumRoute
+  '/_public/signup': typeof PublicSignupRoute
+  '/admindashboard/settings': typeof AdmindashboardSettingsRoute
   '/dashboard/payouts': typeof DashboardPayoutsRoute
-  '/signin/$': typeof SigninSplatRoute
+  '/_public/': typeof PublicIndexRoute
+  '/admindashboard/': typeof AdmindashboardIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/_layoutSidebar/products/$id': typeof LayoutSidebarProductsIdRoute
+  '/_public/signin/$': typeof PublicSigninSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admindashboard'
+    | '/products'
     | '/about'
     | '/impressum'
     | '/signup'
-    | '/products'
+    | '/admindashboard/settings'
     | '/dashboard/payouts'
-    | '/signin/$'
+    | '/admindashboard/'
     | '/dashboard/'
     | '/products/$id'
+    | '/signin/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/products'
     | '/about'
     | '/impressum'
     | '/signup'
-    | '/products'
+    | '/admindashboard/settings'
     | '/dashboard/payouts'
-    | '/signin/$'
+    | '/admindashboard'
     | '/dashboard'
     | '/products/$id'
+    | '/signin/$'
   id:
     | '__root__'
-    | '/'
     | '/_layoutSidebar'
-    | '/about'
-    | '/impressum'
-    | '/signup'
+    | '/admindashboard'
     | '/_layoutSidebar/products'
+    | '/_public/about'
+    | '/_public/impressum'
+    | '/_public/signup'
+    | '/admindashboard/settings'
     | '/dashboard/payouts'
-    | '/signin/$'
+    | '/_public/'
+    | '/admindashboard/'
     | '/dashboard/'
     | '/_layoutSidebar/products/$id'
+    | '/_public/signin/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   LayoutSidebarRouteRoute: typeof LayoutSidebarRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  ImpressumRoute: typeof ImpressumRoute
-  SignupRoute: typeof SignupRoute
+  AdmindashboardRouteRoute: typeof AdmindashboardRouteRouteWithChildren
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicImpressumRoute: typeof PublicImpressumRoute
+  PublicSignupRoute: typeof PublicSignupRoute
   DashboardPayoutsRoute: typeof DashboardPayoutsRoute
-  SigninSplatRoute: typeof SigninSplatRoute
+  PublicIndexRoute: typeof PublicIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  PublicSigninSplatRoute: typeof PublicSigninSplatRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/impressum': {
-      id: '/impressum'
-      path: '/impressum'
-      fullPath: '/impressum'
-      preLoaderRoute: typeof ImpressumRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/admindashboard': {
+      id: '/admindashboard'
+      path: '/admindashboard'
+      fullPath: '/admindashboard'
+      preLoaderRoute: typeof AdmindashboardRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layoutSidebar': {
@@ -183,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutSidebarRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/dashboard/': {
       id: '/dashboard/'
       path: '/dashboard'
@@ -197,11 +211,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signin/$': {
-      id: '/signin/$'
-      path: '/signin/$'
-      fullPath: '/signin/$'
-      preLoaderRoute: typeof SigninSplatRouteImport
+    '/admindashboard/': {
+      id: '/admindashboard/'
+      path: '/'
+      fullPath: '/admindashboard/'
+      preLoaderRoute: typeof AdmindashboardIndexRouteImport
+      parentRoute: typeof AdmindashboardRouteRoute
+    }
+    '/_public/': {
+      id: '/_public/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/payouts': {
@@ -211,12 +232,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardPayoutsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admindashboard/settings': {
+      id: '/admindashboard/settings'
+      path: '/settings'
+      fullPath: '/admindashboard/settings'
+      preLoaderRoute: typeof AdmindashboardSettingsRouteImport
+      parentRoute: typeof AdmindashboardRouteRoute
+    }
+    '/_public/signup': {
+      id: '/_public/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof PublicSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/impressum': {
+      id: '/_public/impressum'
+      path: '/impressum'
+      fullPath: '/impressum'
+      preLoaderRoute: typeof PublicImpressumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_layoutSidebar/products': {
       id: '/_layoutSidebar/products'
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof LayoutSidebarProductsRouteImport
       parentRoute: typeof LayoutSidebarRouteRoute
+    }
+    '/_public/signin/$': {
+      id: '/_public/signin/$'
+      path: '/signin/$'
+      fullPath: '/signin/$'
+      preLoaderRoute: typeof PublicSigninSplatRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_layoutSidebar/products/$id': {
       id: '/_layoutSidebar/products/$id'
@@ -252,15 +308,29 @@ const LayoutSidebarRouteRouteChildren: LayoutSidebarRouteRouteChildren = {
 const LayoutSidebarRouteRouteWithChildren =
   LayoutSidebarRouteRoute._addFileChildren(LayoutSidebarRouteRouteChildren)
 
+interface AdmindashboardRouteRouteChildren {
+  AdmindashboardSettingsRoute: typeof AdmindashboardSettingsRoute
+  AdmindashboardIndexRoute: typeof AdmindashboardIndexRoute
+}
+
+const AdmindashboardRouteRouteChildren: AdmindashboardRouteRouteChildren = {
+  AdmindashboardSettingsRoute: AdmindashboardSettingsRoute,
+  AdmindashboardIndexRoute: AdmindashboardIndexRoute,
+}
+
+const AdmindashboardRouteRouteWithChildren =
+  AdmindashboardRouteRoute._addFileChildren(AdmindashboardRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   LayoutSidebarRouteRoute: LayoutSidebarRouteRouteWithChildren,
-  AboutRoute: AboutRoute,
-  ImpressumRoute: ImpressumRoute,
-  SignupRoute: SignupRoute,
+  AdmindashboardRouteRoute: AdmindashboardRouteRouteWithChildren,
+  PublicAboutRoute: PublicAboutRoute,
+  PublicImpressumRoute: PublicImpressumRoute,
+  PublicSignupRoute: PublicSignupRoute,
   DashboardPayoutsRoute: DashboardPayoutsRoute,
-  SigninSplatRoute: SigninSplatRoute,
+  PublicIndexRoute: PublicIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  PublicSigninSplatRoute: PublicSigninSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

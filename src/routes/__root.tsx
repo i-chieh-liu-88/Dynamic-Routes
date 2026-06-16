@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
+import type { RouterContext } from "../App";
 import Navbar from "../components/organisms/Navbar";
 import Footer from "../components/organisms/Footer";
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
 });
 

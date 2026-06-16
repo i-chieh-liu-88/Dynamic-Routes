@@ -6,7 +6,7 @@ export default function SigninPage() {
       <SignIn
         fallback={"Loading..."}
         signUpUrl="/signup"
-        forceRedirectUrl={"/dashboard"}
+        forceRedirectUrl={"/admindashboard"}
       />
     </>
   );
