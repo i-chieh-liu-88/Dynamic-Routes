@@ -32,7 +32,7 @@ export default function ProductCard({
             params={{ id }}
             search={{ color: undefined, category: undefined }}
           >
-            <button className="btn btn-primary">View More</button>
+            <Button label="View More" variant="primary" />
           </Link>
         </div>
       </div>

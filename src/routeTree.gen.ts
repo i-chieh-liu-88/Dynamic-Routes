@@ -14,7 +14,9 @@ import { Route as ImpressumRouteImport } from './routes/impressum'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LayoutSidebarRouteRouteImport } from './routes/_layoutSidebar/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as SigninSplatRouteImport } from './routes/signin.$'
+import { Route as DashboardPayoutsRouteImport } from './routes/dashboard/payouts'
 import { Route as LayoutSidebarProductsRouteImport } from './routes/_layoutSidebar/products'
 import { Route as LayoutSidebarProductsIdRouteImport } from './routes/_layoutSidebar/products.$id'
 
@@ -42,9 +44,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SigninSplatRoute = SigninSplatRouteImport.update({
   id: '/signin/$',
   path: '/signin/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardPayoutsRoute = DashboardPayoutsRouteImport.update({
+  id: '/dashboard/payouts',
+  path: '/dashboard/payouts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LayoutSidebarProductsRoute = LayoutSidebarProductsRouteImport.update({
@@ -64,7 +76,9 @@ export interface FileRoutesByFullPath {
   '/impressum': typeof ImpressumRoute
   '/signup': typeof SignupRoute
   '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/dashboard/payouts': typeof DashboardPayoutsRoute
   '/signin/$': typeof SigninSplatRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRoutesByTo {
@@ -73,7 +87,9 @@ export interface FileRoutesByTo {
   '/impressum': typeof ImpressumRoute
   '/signup': typeof SignupRoute
   '/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/dashboard/payouts': typeof DashboardPayoutsRoute
   '/signin/$': typeof SigninSplatRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRoutesById {
@@ -84,7 +100,9 @@ export interface FileRoutesById {
   '/impressum': typeof ImpressumRoute
   '/signup': typeof SignupRoute
   '/_layoutSidebar/products': typeof LayoutSidebarProductsRouteWithChildren
+  '/dashboard/payouts': typeof DashboardPayoutsRoute
   '/signin/$': typeof SigninSplatRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/_layoutSidebar/products/$id': typeof LayoutSidebarProductsIdRoute
 }
 export interface FileRouteTypes {
@@ -95,7 +113,9 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/signup'
     | '/products'
+    | '/dashboard/payouts'
     | '/signin/$'
+    | '/dashboard/'
     | '/products/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -104,7 +124,9 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/signup'
     | '/products'
+    | '/dashboard/payouts'
     | '/signin/$'
+    | '/dashboard'
     | '/products/$id'
   id:
     | '__root__'
@@ -114,7 +136,9 @@ export interface FileRouteTypes {
     | '/impressum'
     | '/signup'
     | '/_layoutSidebar/products'
+    | '/dashboard/payouts'
     | '/signin/$'
+    | '/dashboard/'
     | '/_layoutSidebar/products/$id'
   fileRoutesById: FileRoutesById
 }
@@ -124,7 +148,9 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ImpressumRoute: typeof ImpressumRoute
   SignupRoute: typeof SignupRoute
+  DashboardPayoutsRoute: typeof DashboardPayoutsRoute
   SigninSplatRoute: typeof SigninSplatRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -164,11 +190,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signin/$': {
       id: '/signin/$'
       path: '/signin/$'
       fullPath: '/signin/$'
       preLoaderRoute: typeof SigninSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/payouts': {
+      id: '/dashboard/payouts'
+      path: '/dashboard/payouts'
+      fullPath: '/dashboard/payouts'
+      preLoaderRoute: typeof DashboardPayoutsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_layoutSidebar/products': {
@@ -218,7 +258,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ImpressumRoute: ImpressumRoute,
   SignupRoute: SignupRoute,
+  DashboardPayoutsRoute: DashboardPayoutsRoute,
   SigninSplatRoute: SigninSplatRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

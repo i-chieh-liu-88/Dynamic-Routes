@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import Badge from "../../components/atoms/Badge";
-import Button from "../../components/atoms/Button";
 
 // 假資料（和 products.tsx 一樣）
 type Product = {
@@ -69,16 +68,9 @@ function ProductDetailComponent() {
   // 根據 id 找到對應商品
   const product = products.find((p) => p.id === id);
 
-  // 如果找不到商品
+  //在找不到商品時，提早返回，顯示錯誤訊息; 沒有加入這項的話TypeScript會報錯
   if (!product) {
-    return (
-      <div>
-        <h1 className="text-3xl font-bold mb-4">找不到商品</h1>
-        <Link to="/products" search={{ category: undefined }}>
-          <Button label="回到商品列表" />
-        </Link>
-      </div>
-    );
+    return <div>Product not found</div>;
   }
 
   return (

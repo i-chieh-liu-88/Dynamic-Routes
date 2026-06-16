@@ -32,10 +32,10 @@ function AboutComponent() {
       <div className="card bg-base-100 shadow-md p-6">
         <h2 className="text-2xl font-bold mb-3">Our Values</h2>
         <ul className="list-disc list-inside text-base-content space-y-2">
-          <li>Safety first — all toys meet international safety standards</li>
+          <li>Safety first — all items meet international safety standards</li>
           <li>Quality over quantity — we only sell what we believe in</li>
           <li>Sustainable play — eco-friendly materials where possible</li>
-          <li>Fun for everyone — toys for all ages and interests</li>
+          <li>Fun for everyone — items for all ages and interests</li>
         </ul>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import Button from "../components/atoms/Button";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -20,7 +21,7 @@ function RouteComponent() {
             children
           </p>
           <Link to="/products" search={{ category: undefined }}>
-            <button className="btn btn-primary btn-lg">Shop Now</button>
+            <Button label="Shop Now" variant="primary" />
           </Link>
         </div>
       </div>
