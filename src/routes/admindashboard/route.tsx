@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-router";
 UserButton;
 
+//用 beforeLoad 保護整個 admin dashboard
 export const Route = createFileRoute("/admindashboard")({
   beforeLoad: ({ context }) => {
     const { auth } = context;
@@ -44,3 +45,10 @@ function RouteComponent() {
     </>
   );
 }
+
+//這段的意思是：
+// 使用者進入 /admindashboard
+// TanStack Router 先執行 beforeLoad
+// 從 context 拿出 Clerk 的 auth
+// 如果沒有登入：導去 /signin/$
+// 如果有登入：允許進入，並把 userId 傳給子路由

@@ -1,6 +1,6 @@
 type BadgeProps = {
   label: string;
-  variant?: "primary" | "secondary" | "accent";
+  variant?: "primary" | "secondary" | "accent" | "outline";
 };
 
 export default function Badge({ label, variant = "primary" }: BadgeProps) {

@@ -6,6 +6,7 @@ export const Route = createFileRoute("/admindashboard/")({
 
 function RouteComponent() {
   const { userId } = Route.useRouteContext();
+  //子頁面用 Route.useRouteContext() 取得 userId
   return (
     <>
       <div className="h-dvh flex flex-col items-center justify-between py-50">

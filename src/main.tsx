@@ -11,3 +11,5 @@ createRoot(document.getElementById("root")!).render(
     </ClerkProvider>
   </StrictMode>,
 );
+
+//用 ClerkProvider 包住整個 App

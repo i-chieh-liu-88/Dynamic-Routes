@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
-import ProductCard from "../../components/molecules/ProductCard";
+import ProductCard from "../../../components/molecules/ProductCard";
+import Badge from "../../../components/atoms/Badge";
 
 // 假資料
 type Product = {
@@ -48,7 +49,7 @@ const products: Product[] = [
   },
 ];
 
-export const Route = createFileRoute("/_layoutSidebar/products")({
+export const Route = createFileRoute("/_public/_layoutSidebar/products")({
   validateSearch: (search) => {
     return {
       category: search.category ? String(search.category) : undefined,
@@ -73,14 +74,12 @@ function ProductsComponent() {
   return (
     <div>
       <Outlet /> {/* 子頁面顯示在這裡 */}
-      <h1 className="text-3xl font-bold mb-4 p-10">Product List</h1>
+      <h1 className="text-3xl font-bold mb-3 p-3">Product List</h1>
       {/* 顯示目前篩選的分類 */}
       {category ? (
-        <div className="badge badge-primary mb-4">
-          Current Category：{category}
-        </div>
+        <Badge label={`Current Category: ${category}`} variant="accent" />
       ) : (
-        <div className="badge mb-4">All Products</div>
+        <Badge label="All Products" variant="secondary" />
       )}
       {/* 用 map 渲染商品卡片 */}
       <div>

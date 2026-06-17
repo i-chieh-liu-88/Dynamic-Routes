@@ -60,7 +60,7 @@ export default function Footer() {
       </nav>
       <aside>
         <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by TTS Ltd
+          Copyright © {new Date().getFullYear()} - All right reserved by SS Ltd
         </p>
       </aside>
     </footer>

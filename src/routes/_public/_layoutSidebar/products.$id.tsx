@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import Badge from "../../components/atoms/Badge";
+import Badge from "../../../components/atoms/Badge";
 
 // 假資料（和 products.tsx 一樣）
 type Product = {
@@ -48,7 +48,7 @@ const products: Product[] = [
   },
 ];
 
-export const Route = createFileRoute("/_layoutSidebar/products/$id")({
+export const Route = createFileRoute("/_public/_layoutSidebar/products/$id")({
   validateSearch: (search) => {
     return {
       color: search.color ? String(search.color) : undefined,
@@ -104,11 +104,10 @@ function ProductDetailComponent() {
                   search={{ color: c, category: undefined }}
                   //把網址的 color 換成這個顏色，category 清空; TanStack Router 看到 undefined 就會直接把那個參數從網址移除
                 >
-                  <span
-                    className={`badge ${color === c ? "badge-primary" : "badge-outline"}`}
-                  >
-                    {c}
-                  </span>
+                  <Badge
+                    label={c}
+                    variant={color === c ? "primary" : "outline"}
+                  />
                 </Link>
               ))}
             </div>

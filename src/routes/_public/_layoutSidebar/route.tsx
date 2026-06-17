@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/_layoutSidebar")({
+export const Route = createFileRoute("/_public/_layoutSidebar")({
   component: LayoutComponent,
 });
 
